@@ -1,0 +1,11 @@
+# Ignore all files without extention
+*
+!/**/
+!*.*
+
+!Makefile
+
+.vscode
+out
+probe
+1brc
