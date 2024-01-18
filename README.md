@@ -5,7 +5,7 @@ A simple solution for Gunnar Morling's [One Billion Row Challenge](https://githu
 
 ## Quick start
 Prerequisites:
-* [Gnu COBOL](https://gnucobol.sourceforge.io/) `cobc`
+* [GnuCOBOL](https://gnucobol.sourceforge.io/) `cobc`
 * Any C-compiler e.g., `gcc`
 * Optionally `make`, command to compile is simple.
 
@@ -25,3 +25,6 @@ And to run with the data set of your choosing
 ```bash
 $ ./1brc-cobol measurements.txt
 ```
+
+## Performance and times
+TBD
