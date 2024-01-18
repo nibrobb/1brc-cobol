@@ -10,3 +10,5 @@
 out
 probe
 1brc
+out.data
+out.time

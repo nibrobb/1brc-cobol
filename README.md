@@ -26,5 +26,25 @@ And to run with the data set of your choosing
 $ ./1brc-cobol measurements.txt
 ```
 
-## Performance and times
-TBD
+## Performance
+Test system:
+|     |                            |
+|:----|:---------------------------|
+| CPU | 16c/32t AMD Ryzen 9 7950X  |
+| RAM | 64GB DDR5 @ 6000 MHz       |
+| SSD | Samsung 990 Pro NVMe 2TB   |
+
+Running with the full 1 billion row file on my machine the results are as follows
+
+```bash
+real    18m 59.010s
+user    18m 57.122s
+sys      0m  1.880s
+```
+For comparison the baseline Java implementation runs in 
+```bash
+real    1m 30.335s
+user    1m 28.930s
+sys     0m  2.482s
+```
+Meaning my implementation runs about 12.6 times slower than the baseline 😅 
