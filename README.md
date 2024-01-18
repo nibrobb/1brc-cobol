@@ -13,17 +13,17 @@ Prerequisites:
 
 Simply compile with make
 ```bash
-$ make
+make
 ```
 
 or run this command
 ```bash
-$ cobc -Wno-others -O3 -x c_wrapper.c 1brc.cbl -o 1brc-cobol
+cobc -Wno-others -O3 -x c_wrapper.c 1brc.cbl -o 1brc-cobol
 ```
 
 And to run with the data set of your choosing
 ```bash
-$ ./1brc-cobol measurements.txt
+./1brc-cobol measurements.txt
 ```
 
 ## Performance
