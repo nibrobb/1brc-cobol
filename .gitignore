@@ -5,7 +5,9 @@
 
 !Makefile
 !LICENSE
+!data/measurements.txt
 
+data/**
 .vscode
 out
 probe
