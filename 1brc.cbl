@@ -3,7 +3,7 @@
       * Original author: Robin Kristiansen
       *
       * Description: a [naive] COBOL solution for Gunnar Morling's
-      *    One Billion Row Challenge: 
+      *    One Billion Row Challenge:
       *    (https://github.com/gunnarmorling/1brc)
       *
       *****************************************************************
@@ -15,21 +15,21 @@
       *****************************************************************
 
        ENVIRONMENT DIVISION.
-       INPUT-OUTPUT SECTION.  
+       INPUT-OUTPUT SECTION.
        FILE-CONTROL.
       *    SELECT INPUT-FILE ASSIGN TO 'data/input.txt'
            SELECT INPUT-FILE ASSIGN USING FILENAME
-              ORGANIZATION IS LINE SEQUENTIAL 
+              ORGANIZATION IS LINE SEQUENTIAL
               ACCESS MODE IS SEQUENTIAL.
 
-       DATA DIVISION. 
-       FILE SECTION. 
+       DATA DIVISION.
+       FILE SECTION.
        FD INPUT-FILE DATA RECORD IS REC.
        01 REC.
           05 REC-DATA-01           PIC X(110).
              88 FILE-EOF                             VALUE HIGH-VALUES.
 
-       WORKING-STORAGE SECTION. 
+       WORKING-STORAGE SECTION.
        01 FILENAME                 PIC X(255).
        01 MEASUREMENT.
           05 MEAS-LOC              PIC X(100).
@@ -56,10 +56,10 @@
           02 WS-MEASUREMENT OCCURS 1 TO 500 TIMES
                 DEPENDING ON TBL-SIZE INDEXED BY WS-IDX.
              03 WS-MEAS-LOC        PIC X(100).
-             03 WS-MEAS-MIN        PIC S9(2)V9 COMP-3. 
-             03 WS-MEAS-MAX        PIC S9(2)V9 COMP-3. 
-             03 WS-MEAS-MEAN       PIC S9(2)V9 COMP-3. 
-             03 WS-MEAS-TOTALTEMP  PIC S9(9)V9 COMP-3. 
+             03 WS-MEAS-MIN        PIC S9(2)V9 COMP-3.
+             03 WS-MEAS-MAX        PIC S9(2)V9 COMP-3.
+             03 WS-MEAS-MEAN       PIC S9(2)V9 COMP-3.
+             03 WS-MEAS-TOTALTEMP  PIC S9(9)V9 COMP-3.
              03 WS-MEAS-COUNT      PIC 9(7).
       *    repr  only used for display, not for arithmetic
        77 DSPL-LOC                 PIC X(30).
@@ -72,7 +72,7 @@
        77 DSPL-UNIQ                PIC Z,ZZZ,ZZZ,ZZZ.
        77 DSPL-CNT                 PIC Z,ZZZ,ZZZ,ZZZ.
 
-       LINKAGE SECTION. 
+       LINKAGE SECTION.
        01 CMD-INPUT                PIC X(255).
 
        PROCEDURE DIVISION USING CMD-INPUT.
@@ -81,7 +81,7 @@
            OPEN INPUT INPUT-FILE.
 
            PERFORM FETCH-RECORDS
-           
+
            CLOSE INPUT-FILE.
 
            PERFORM CALCULATE-MEANS.
@@ -98,7 +98,7 @@
                    AT END
                       SET FILE-EOF TO TRUE
                    NOT AT END
-                       ADD 1 TO WS-TOTAL-COUNT 
+                       ADD 1 TO WS-TOTAL-COUNT
                        PERFORM PARSE-RECORD
                    END-READ
            END-PERFORM
@@ -118,10 +118,10 @@
       *    TODO: optimization:
       *       Find a way to use SEARCH ALL (binary search)
       *       Table must to be sorted beforehand though
-           SEARCH WS-MEASUREMENT VARYING WS-IDX 
+           SEARCH WS-MEASUREMENT VARYING WS-IDX
            AT END
               PERFORM NOT-FOUND
-           WHEN WS-MEAS-LOC(WS-IDX) = MEAS-LOC 
+           WHEN WS-MEAS-LOC(WS-IDX) = MEAS-LOC
                 PERFORM FOUND
            END-SEARCH.
 
@@ -155,7 +155,7 @@
            IF MEAS-TEMP > WS-MEAS-MAX(WS-IDX) THEN
               MOVE MEAS-TEMP TO WS-MEAS-MAX(WS-IDX)
            END-IF
-              
+
            EXIT.
 
        CALCULATE-MEANS.
@@ -173,7 +173,7 @@
            SORT WS-MEASUREMENT ASCENDING WS-MEAS-LOC.
            EXIT.
 
-       
+
       *PRINT-TABLE.
       *    MOVE WS-TOTAL-COUNT TO DSPL-CNT.
       *    MOVE WS-UNIQ-COUNT TO DSPL-UNIQ.
@@ -189,11 +189,11 @@
       *    DISPLAY "--------------------------------------------------".
       *    COMPUTE WS-IDX = TBL-SIZE - WS-UNIQ-COUNT + 1.
       *    PERFORM VARYING WS-IDX
-      *       FROM WS-IDX BY 1 UNTIL WS-IDX > TBL-SIZE 
+      *       FROM WS-IDX BY 1 UNTIL WS-IDX > TBL-SIZE
       *            MOVE FUNCTION TRIM(WS-MEAS-LOC(WS-IDX)) TO DSPL-LOC
-      *            MOVE WS-MEAS-MIN(WS-IDX) TO DSPL-MIN 
-      *            MOVE WS-MEAS-MEAN(WS-IDX) TO DSPL-MEAN 
-      *            MOVE WS-MEAS-MAX(WS-IDX) TO DSPL-MAX 
+      *            MOVE WS-MEAS-MIN(WS-IDX) TO DSPL-MIN
+      *            MOVE WS-MEAS-MEAN(WS-IDX) TO DSPL-MEAN
+      *            MOVE WS-MEAS-MAX(WS-IDX) TO DSPL-MAX
       *            DISPLAY DSPL-LOC
       *                    DSPL-MIN
       *                    "    "
@@ -207,11 +207,11 @@
            DISPLAY "{" WITH NO ADVANCING.
            COMPUTE WS-IDX = TBL-SIZE - WS-UNIQ-COUNT + 1.
            PERFORM VARYING WS-IDX
-              FROM WS-IDX BY 1 UNTIL WS-IDX > TBL-SIZE 
-                   MOVE FUNCTION TRIM(WS-MEAS-LOC(WS-IDX)) TO DSPL-LOC 
-                   MOVE WS-MEAS-MIN(WS-IDX) TO DSPL-MIN 
-                   MOVE WS-MEAS-MEAN(WS-IDX) TO DSPL-MEAN 
-                   MOVE WS-MEAS-MAX(WS-IDX) TO DSPL-MAX 
+              FROM WS-IDX BY 1 UNTIL WS-IDX > TBL-SIZE
+                   MOVE FUNCTION TRIM(WS-MEAS-LOC(WS-IDX)) TO DSPL-LOC
+                   MOVE WS-MEAS-MIN(WS-IDX) TO DSPL-MIN
+                   MOVE WS-MEAS-MEAN(WS-IDX) TO DSPL-MEAN
+                   MOVE WS-MEAS-MAX(WS-IDX) TO DSPL-MAX
                    DISPLAY
                       FUNCTION TRIM(DSPL-LOC)
                       "="
@@ -220,10 +220,11 @@
                       FUNCTION TRIM(DSPL-MEAN)
                       "/"
                       FUNCTION TRIM(DSPL-MAX)
-                      WITH NO ADVANCING 
+                      WITH NO ADVANCING
                    IF WS-IDX < TBL-SIZE THEN
-                      DISPLAY ", " WITH NO ADVANCING 
+                      DISPLAY ", " WITH NO ADVANCING
                    END-IF
            END-PERFORM.
            DISPLAY "}"
            EXIT.
+
